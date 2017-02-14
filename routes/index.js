@@ -10,12 +10,10 @@ router.get('/', function(req, res, next){
 
 router.post('/Ingredients', function(req, res, next){
   db.ingredients.find(function(err, ingredients){
-    if(err)
-    {
+    if(err){
       res.send(err);
     }
     res.json(ingredients);
-
   })
 });
 
@@ -26,8 +24,17 @@ router.get('/Recepees', function(req, res, next){
       res.send(err);
     }
     res.json(recepees);
+  });
+});
 
-  })
+router.get('/GetRecepee/:name', function(req, res){
+  console.log(req.params.name);
+  db.recepees.findOne({name: req.params.name}, function(err, recepee){
+    if(err)
+      res.send(err);
+    
+    res.json(recepee);
+  });
 });
 
 module.exports = router;

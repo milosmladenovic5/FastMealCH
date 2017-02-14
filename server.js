@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/recepee', recepee);
+app.use('/api', recepee);
 
 app.listen(port, function(){
     console.log('Server started on port', +port);

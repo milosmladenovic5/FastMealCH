@@ -171,10 +171,11 @@ label
 
 #cart{
   background-color: cornflowerblue;
-  max-width: 50%;
+  max-width: 31.5%;
   padding:10px;
   position:fixed;
   float:left;
+  margin-top:20px;
 }
 
 #main > .div
@@ -186,4 +187,19 @@ label
 {
   margin-left:15px;
   margin-bottom: 5px;
+}
+
+#panelContainer{
+  position:relative;
+  float:right;
+  margin-right: 30px;
+}
+
+.img-thumbnail{
+  max-width: 35%;
+  float:left;
+}
+
+.prepTimeP{
+  float:right;
 }
