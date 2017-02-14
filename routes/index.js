@@ -1,7 +1,7 @@
 var express  = require('express');
 var router  = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs("mongodb://localhost:27017/Recepees");
+var db = mongojs("mongodb://localhost:27017/Recipes");
 
 
 router.get('/', function(req, res, next){
@@ -17,23 +17,23 @@ router.post('/Ingredients', function(req, res, next){
   })
 });
 
-router.get('/Recepees', function(req, res, next){
-  db.recepees.find(function(err, recepees){
+router.get('/Recipes', function(req, res, next){
+  db.recipes.find(function(err, recipes){
     if(err)
     {
       res.send(err);
     }
-    res.json(recepees);
+    res.json(recipes);
   });
 });
 
-router.get('/GetRecepee/:name', function(req, res){
+router.get('/GetRecipe/:name', function(req, res){
   console.log(req.params.name);
-  db.recepees.findOne({name: req.params.name}, function(err, recepee){
+  db.recipes.findOne({name: req.params.name}, function(err, recipe){
     if(err)
       res.send(err);
     
-    res.json(recepee);
+    res.json(recipe);
   });
 });
 

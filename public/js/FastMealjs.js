@@ -74,18 +74,18 @@
         }
     }
 
-    function getRecepees()
+    function getRecipes()
     {
         //var selectedIngredients = selectIngredients();
         var selectedIngredients = ["brašno", "mleko", "jaja", "so", "suncokretovo ulje"];
        
-        $.get("/Recepees", {}, function(data){    
-            var allRecepees = new Array();
+        $.get("/Recipes", {}, function(data){    
+            var allRecipes = new Array();
             $.each(data, function(index, value){
-                    allRecepees.push(data[index]);
+                    allRecipes.push(data[index]);
             });
-            var matchingRecepees  = getMatchedRecepeees(selectedIngredients, allRecepees);
-            showMatchedRecepees(matchingRecepees);
+            var matchingRecipes  = getMatchedRecipes(selectedIngredients, allRecipes);
+            showMatchedRecipes(matchingRecipes);
 
           // window.location.replace("http://stackoverflow.com");
         });   
@@ -107,17 +107,17 @@
         return arrayOfingredients;
      }
     
-     function getMatchedRecepeees (selectedIngredients, allRecepees)
+     function getMatchedRecipes (selectedIngredients, allRecipes)
      {
-         var matchedRecepees = new Array();
-         for (var i = 0; i<allRecepees.length; i++)
+         var matchedRecipes = new Array();
+         for (var i = 0; i<allRecipes.length; i++)
          {   
-             var countOfRecIngr = allRecepees[i].ingredients.length;
+             var countOfRecIngr = allRecipes[i].ingredients.length;
              var numOfMatched  = countOfRecIngr;
 
-             for (var j=0; j<allRecepees[i].ingredients.length; j++)
+             for (var j=0; j<allRecipes[i].ingredients.length; j++)
              {
-                 if($.inArray(allRecepees[i].ingredients[j], selectedIngredients)===-1)
+                 if($.inArray(allRecipes[i].ingredients[j], selectedIngredients)===-1)
                  {
                      numOfMatched--;
                      break;
@@ -126,53 +126,55 @@
                 
               if(numOfMatched===countOfRecIngr)
               {
-                matchedRecepees.push(allRecepees[i]);
+                matchedRecipes.push(allRecipes[i]);
               }
 
          }
-         return matchedRecepees;
+         return matchedRecipes;
      }    
 
 
-     function showMatchedRecepees(recepees)
+     function showMatchedRecipes(recipes)
      {
         //ova funckija ce da prosiri desni container za panele i doda mu po jedan panel za svaki recept koji odgovara pretrazi
         //na svaki recept bice omogucen poseban klik i odabir kako bi se videli detalji o istom
 
         var parent = document.getElementById('panelContainer'); 
 
-        for(var i=0; i<recepees.length; i++)
+        for(var i=0; i<recipes.length; i++)
         {
             var panelChild = document.createElement('div');
             panelChild.classList ="panel panel-success";
             
             var panelHeading = document.createElement('div');
             panelHeading.classList = 'panel-heading';
-            panelHeading.innerHTML = recepees[i].name;
+            panelHeading.innerHTML = recipes[i].name;
 
             var panelContent =  document.createElement('div');
             panelContent.classList = 'panel-body';
             
-            var recepeeImage  = document.createElement('img');
-            recepeeImage.classList = "images img-thumbnail";
-            recepeeImage.src = recepees[i].image;
+            var recipeImage  = document.createElement('img');
+            recipeImage.classList = "images img-thumbnail";
+            recipeImage.src = recipes[i].image;
 
 
             var prepTime = document.createElement('p');
             prepTime.classList = 'prepTimeP';
-            prepTime.innerHTML = recepees[i].estimatedTime;
+            prepTime.innerHTML = recipes[i].estimatedTime;
 
             var moreInfoLink  = document.createElement('button');
             moreInfoLink.innerHTML = "More information";
-            var recName = recepees[i].name;
+            moreInfoLink.classList = "btn btn-success";
+            moreInfoLink.id="moreBtn";
+            var recName = recipes[i].name;
 
             moreInfoLink.onclick = function(){
-                    openRecepee(recName);
+                    openRecipe(recName);
             };
               
 
 
-            panelContent.appendChild(recepeeImage);
+            panelContent.appendChild(recipeImage);
             panelContent.appendChild(moreInfoLink);
             panelContent.appendChild(prepTime);
         
@@ -186,13 +188,12 @@
      }
 
 
-     function openRecepee(name)
+     function openRecipe(name)
      {
         //klik na link o vise informacija dovesce u ovu funkciju koja ce da izbaci modal
         //sa svim informacijama o receptu
-        $.get("/GetRecepee/"+name,{}, function(data){
-            var recepeeName = data.name;
-            alert(recepeeName);
+        $.get("/GetRecipe/"+name,{}, function(data){
+            var recipeName = data.name;
         });
      }
  }
