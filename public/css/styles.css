@@ -3,8 +3,8 @@
   position: fixed;
   border-radius: 0;
   height: 100%;
-  align-content: center;
-  text-align: center;
+  align-content: left;
+  text-align: align;
   color: #ffffff;
 	background-color: #3479b5;
 
@@ -28,19 +28,19 @@
 }
 
 .navbar-brand{
-  align-content: center;
+  align-content: left;
 }
 
 .mainName{
   font:serif;
   font-style: italic;
-  align-content: center;
+  align-content: left;
 }
 
 p{
   font:serif;
   font-style: italic;
-  align-content: center;
+  align-content: left;
   padding-left:6px;
 }
 

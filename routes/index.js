@@ -7,7 +7,7 @@ router.get('/', function(req, res, next){
   res.render('index.html');
 });
 
-router.get('/Ingredients', function(req, res, next){
+router.post('/Ingredients', function(req, res, next){
   db.recepees.find(function(err, ingredients){
     if(err)
     {
