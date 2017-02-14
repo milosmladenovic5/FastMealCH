@@ -10,28 +10,35 @@
   </head>
   <body>
   
-     <div class="navbar navbar-inverse navbar-fixed-left">
-            <img id="logo" class="img-thumbnail" src="/images/recepee.png">
-        <br/>
-        <ul id="navbar" class="nav navbar-nav">
-          <li class="mainName"><h4>Choose your ingredients:</h4></li>
-          <li id="buttonSelect"> <input id="selectIngrBtn" type="button" value="Select" class="btn btn-primary"/> </li>
-       
-        </ul>
-        <br>
-    
+     
 
-      </div>
-      <div class="container">
-      <div class="row">
-        
-      </div>
-   </div>
+    
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  
+</div>
+
+<div id="main">
+  <h2>Welcome to your FastMeal recepee finder</h2>
+  <p>Click on the element below to choose ingredients for your meal and let us recommend something you can prepare:</p>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Choose ingredients</span>
+  
+  <div id="cart" class="container">
+    
+  </div>
+
+  <input type="button" class="btn btn-primary" value="Get Recepees" id="getRecepees"></input>
+</div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/FastMealjs.js"></script>
+          
+    <script>
+  
+    </script>
+
   </body>
 </html>
