@@ -78,7 +78,7 @@ li{
 .radio .cr {
     position: relative;
     display: inline-block;
-    border: 1px solid #a9a9a9;
+    border: 1px solid #ffffff;
     border-radius: .25em;
     width: 1.3em;
     height: 1.3em;
@@ -133,10 +133,11 @@ li{
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #000000;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+      padding-top: 60px;
+      opacity:0.72;
 }
 
 .sidenav a {
@@ -220,4 +221,46 @@ label
 #moreBtn{
   margin-left: 10px;
   margin-top:5%;
+}
+
+#imgContainer > img
+{
+  max-width: 40%;
+}
+
+#imgContainer
+{
+  display:table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#imgContainer img {
+    display:block;
+    margin-left:30%;
+    justify-content: center;
+}
+
+#myModalLabel
+{
+  text-align: center;
+}
+
+#prepTime
+{
+  float:right;
+}
+
+.modalSpan{
+  display:inline-block;
+}
+
+.modalSpan > p
+{
+  float:left;
+}
+
+
+.innerLabels{
+  color:#000000;
 }

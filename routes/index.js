@@ -28,7 +28,6 @@ router.get('/Recipes', function(req, res, next){
 });
 
 router.get('/GetRecipe/:name', function(req, res){
-  console.log(req.params.name);
   db.recipes.findOne({name: req.params.name}, function(err, recipe){
     if(err)
       res.send(err);
