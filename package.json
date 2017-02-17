@@ -13,6 +13,7 @@
     "ejs": "^2.5.5",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
+    "express-validator": "^3.1.2",
     "mongodb": "^2.2.23",
     "mongojs": "^2.4.0",
     "react": "^15.4.2",

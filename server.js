@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 
 var index = require('./routes/index');
 var user = require('./routes/user')
@@ -21,6 +22,22 @@ app.engine('html', require('ejs').renderFile);
 //body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
