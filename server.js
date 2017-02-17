@@ -3,6 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
+var user = require('./routes/user')
 
 var session = require('express-session');
 
@@ -28,6 +29,7 @@ app.use(session({secret:"Milos_SLEPI_DECAK12321321sdfsd", resave:false, saveUnin
 
 
 app.use('/', index);
+app.use('/api', user);
 
 app.listen(port, function(){
     console.log('Server started on port', + port);

@@ -279,7 +279,9 @@
      {
          $('.modalSpan').empty();
          $('#mealImage').remove();
-    }
+     }
+
+
     
  }
     
