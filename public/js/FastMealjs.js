@@ -1,50 +1,78 @@
 {
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-        var parent  = document.getElementById('mySidenav');
-        
-        $.post("/Ingredients", {}, function(data){
-            $.each(data, function(index, value){
-                var li  = document.createElement("li");
+    function openNav() 
+    {
 
-                var childDiv = document.createElement("div");
-                childDiv.className="col-sm-12";
+        var parent =  document.getElementById("mySidenav");
+        var main = document.getElementById("main");
+
+        if(parent.style.width != "250px")
+        {
+            parent.style.width = "250px";
+            main.style.marginLeft = "250px";
+        }
+        else
+        {
+            parent.style.width = "0px";
+            main.style.marginLeft = "0px";
+        }
+
+        //var parent  = document.getElementById('mySidenav');
+       
+     
+        if($("#mySidenav").has("li").length === 0)
+        {
+            $.post("/Ingredients", {}, function(data){
+
+            //if(parent.hasChildNodes())
+            //{
+            //    while(parent.firstChild)
+            //        parent.removeChild(parent.firstChild);
+            //}
+
+           
+                $.each(data, function(index, value){
+                    var li  = document.createElement("li");
+
+                    var childDiv = document.createElement("div");
+                    childDiv.className="col-sm-12";
                 
-                var checkDiv = document.createElement("div");
-                checkDiv.className = "checkbox";
+                    var checkDiv = document.createElement("div");
+                    checkDiv.className = "checkbox";
 
-                var label  = document.createElement("label");
+                    var label  = document.createElement("label");
 
-                var input  = document.createElement("input");
-                input.type = "checkbox";
-                input.id = data[index].name;
-                input.onclick = function(){
-                    checkBoxSelect(data[index].name);
-                };
-                //input.value = data[index].name;
+                    var input  = document.createElement("input");
+                    input.type = "checkbox";
+                    input.id = data[index].name;
+                    input.onclick = function(){
+                        checkBoxSelect(data[index].name);
+                    };
+                    //input.value = data[index].name;
 
-                var span  = document.createElement("span");
-                span.className = "cr";
+                    var span  = document.createElement("span");
+                    span.className = "cr";
 
-                var i  = document.createElement("i");
-                i.classList  = "cr-icon glyphicon glyphicon-ok";
+                    var i  = document.createElement("i");
+                    i.classList  = "cr-icon glyphicon glyphicon-ok";
 
-                label.innerHTML = data[index].name;
+                    label.innerHTML = data[index].name;
 
-                span.appendChild(i);
-                label.appendChild(input);
-                label.appendChild(span);
-                checkDiv.appendChild(label);
-                childDiv.appendChild(checkDiv);
-                li.appendChild(childDiv);
+                    span.appendChild(i);
+                    label.appendChild(input);
+                    label.appendChild(span);
+                    checkDiv.appendChild(label);
+                    childDiv.appendChild(checkDiv);
+                    li.appendChild(childDiv);
 
-                parent.appendChild(li);
+                    parent.appendChild(li);
+                });
             });
-         });
+
+        }
     }
 
-    function closeNav() {
+    function closeNav()
+    {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("main").style.marginLeft= "0";
     }
@@ -140,6 +168,12 @@
         //na svaki recept bice omogucen poseban klik i odabir kako bi se videli detalji o istom
 
         var parent = document.getElementById('panelContainer'); 
+
+        if(parent.hasChildNodes())
+        {
+            while(parent.firstChild)
+                parent.removeChild(parent.firstChild);
+        }
 
         for(var i=0; i<recipes.length; i++)
         {
