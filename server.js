@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 
+var session = require('express-session');
 
 var app = express();
 var port = 8000;
@@ -22,8 +23,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+//session
+app.use(session({secret:"Milos_SLEPI_DECAK12321321sdfsd", resave:false, saveUninitialized:true}));
+
+
 app.use('/', index);
 
 app.listen(port, function(){
-    console.log('Server started on port', +port);
+    console.log('Server started on port', + port);
 })

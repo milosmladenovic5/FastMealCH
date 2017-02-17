@@ -12,6 +12,7 @@
     "body-parser": "^1.16.1",
     "ejs": "^2.5.5",
     "express": "^4.14.1",
+    "express-session": "^1.15.1",
     "mongodb": "^2.2.23",
     "mongojs": "^2.4.0",
     "react": "^15.4.2",

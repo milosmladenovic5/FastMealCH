@@ -36,4 +36,26 @@ router.get('/GetRecipe/:name', function(req, res){
   });
 });
 
+router.post('/login', function(req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+
+  db.user.findOne({username: username, password: password}, function (err, user){
+    if(err)
+    {
+      //console.log(err);
+      return res.status(500).send();
+    }
+    
+    if(!user)
+    {
+      return res.status(404).send();
+    }
+
+    req.session.user = user;
+    //return res.status(200).send();
+
+  });
+
+});
 module.exports = router;
