@@ -97,3 +97,27 @@ body {
 	background-color: #1CA347;
 	border-color: #1CA347;
 }
+
+
+
+body{
+  background:url('/images/food2.jpeg');
+   background-repeat:no-repeat;
+   background-size:cover;
+
+}
+
+.panel
+{
+	opacity: 0.92;
+}
+
+* {
+  border-radius: 0 !important;
+  border-color:#ffffff;
+}
+
+#username #password
+{
+	color:black;
+}

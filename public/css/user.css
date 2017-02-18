@@ -7,3 +7,89 @@ display: block;
 line-height: 1.428571429;
 color: #999;
 }
+
+
+.well 
+{
+    border-radius:0px;
+    background:forestgreen;
+    opacity: 0.9;
+   
+}
+
+.img-rounded{
+    border-radius: 0px;
+}
+
+
+* {
+  border-radius: 0 !important;
+  border-color:#ffffff;
+}
+
+
+body{
+  background:url('/images/food2.jpeg');
+   background-repeat:no-repeat;
+   background-size:cover;
+
+}
+
+
+.user-info
+{
+    position:relative;
+    float:left;
+    margin-left:20px;
+}
+
+
+.favRecipes {
+    position:relative;
+    float:right;
+    text-align: center;
+    border:2px darkcyan dashed;
+}
+
+.listOfRecipes{
+    align-content: center;
+    text-align: center;
+}
+
+
+#imgContainer > img
+{
+  max-width: 40%;
+}
+
+#imgContainer
+{
+  display:table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#imgContainer img {
+    display:block;
+    margin-left:30%;
+    justify-content: center;
+}
+
+#myModalLabel
+{
+  text-align: center;
+}
+
+#prepTime
+{
+  float:right;
+}
+
+.modalSpan{
+  display:inline-block;
+}
+
+.modalSpan > p
+{
+  float:left;
+}

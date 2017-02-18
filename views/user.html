@@ -9,9 +9,10 @@
     <link href="../css/user.css" rel="stylesheet">
   </head>
   <body>
- <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6">
+
+<div class="col-lg-12"> 
+ <div class="container user-info col-lg-6">
+        <div class="">
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
@@ -30,17 +31,72 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary">Change info</button>
                                
-                        
+                            
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
+
+<div class="favRecipes container col-lg-5">
+    <h1>Favorite recipes</h1>
+    <div class="listOfRecipes">
+     <% for(var i=0; i<user.favoriteRecipes.length; i++) { %>
+       <a href="#" onclick="getRecipe(this)" id= <%= user.favoriteRecipes[i] %> ><%= user.favoriteRecipes[i] %> </a>
+       </br>
+    <% } %>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteChildren()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div id="modalBody" class="modal-body">
+        <div id="imgContainer" class="container">
+          <span class="modalSpan" id="prepTimeSp">
+           
+          
+          </span>
+          
+          </br>
+          
+          <span class="modalSpan" id="ingredientsParent">
+
+          </span>
+          </br>
+          <span class="modalSpan">
+          
+          </span>
+        </div>
+      <div id="wayOfPreparation">
+        <label> Procedure: </label> 
+        <p id="preparation">
+          
+        </p>        
+      </div>
+
+      </div>
+      <div id= "modalFooter" class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteChildren()">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
 </div>
 
     
     <script src="../js/jquery-3.1.0.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/user.js"></script>
+    <script src="../js/FastMealjs.js"></script>
+     <script src="../js/bootstrap.min.js"></script>
     <!--<script src="../js/userPanel.js"></script> -->
   </body>
   </html>
