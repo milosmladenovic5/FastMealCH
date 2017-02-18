@@ -6,21 +6,22 @@ var db = mongojs("mongodb://localhost:27017/Recipes");
 
 
 router.get('/login', function(req, res, next){
-  return res.render('loginOrRegister.html', {errors:null});
+  var regData = {username:" ", password:" ", email:" ", cpassword:" " };
+  return res.render('loginOrRegister.html', {errors:null, regData:regData});
 });
 
 router.post('/loginInputData', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
 
-   req.checkBody("username", "Username is required!").notEmpty();
-   req.checkBody("password", "Password is required!").notEmpty();
+  req.checkBody("username", "Username is required!").notEmpty();
+  req.checkBody("password", "Password is required!").notEmpty();
 
-   var errors = req.validationErrors();
+  var errors = req.validationErrors();
+  var regData = {username:" ", password:" ", email:" ", cpassword:" " };
 
-
-    if(errors)
-        return res.render('loginOrRegister.html', {errors:errors});
+  if(errors)
+     return res.render('loginOrRegister.html', {errors:errors, regData:regData});
 
   db.users.findOne({username: username, password: password}, function (err, user){
     if(err)
@@ -38,7 +39,7 @@ router.post('/loginInputData', function(req, res) {
     errors = new Array();
     errors.push({ param: ' ', msg: 'No such user exists!', value: ' ' })
 
-    return res.render('loginOrRegister.html', {errors:errors}); 
+    return res.render('loginOrRegister.html', {errors:errors, regData:regData}); 
 
   
     
@@ -61,11 +62,12 @@ router.post('/register', function(req, res, next){
     req.checkBody("confirm_password", "Passwords do not match!").equals(req.body.password);
 
     var errors = req.validationErrors();
+    var regData = {username:username, password:password, email:email, cpassword:confirm_password };
 
-    // { param: 'getparam', msg: 'Invalid getparam', value: '1ab' } - Format sa error "objekta" sa oficijalne stranice za validator
+    // { param: 'getparam', msg: 'Invalid getparam', value: '1ab' } - Format  error "objekta" sa oficijalne stranice za validator
 
     if(errors)
-        return res.render('loginOrRegister.html', {errors:errors});
+        return res.render('loginOrRegister.html', {errors:errors, regData:regData});
 
     db.users.findOne({username: username}, function (err, userByUsername){
 
@@ -73,7 +75,7 @@ router.post('/register', function(req, res, next){
         {
             errors = new Array();
             errors.push({ param: ' ', msg: 'Username is already taken!', value: ' ' })
-            return res.render('loginOrRegister.html', {errors:errors});
+            return res.render('loginOrRegister.html', {errors:errors, regData:regData});
         }
            
 
@@ -82,7 +84,7 @@ router.post('/register', function(req, res, next){
                     {
                         errors = new Array();
                         errors.push({ param: ' ', msg: 'Email is already taken!', value: ' ' })
-                        return res.render('loginOrRegister.html', {errors:errors});
+                        return res.render('loginOrRegister.html', {errors:errors, regData:regData});
                     }
 
                
