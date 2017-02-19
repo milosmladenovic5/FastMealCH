@@ -11,29 +11,30 @@ router.get('/login', function(req, res, next){
 });
 
 
-router.get('/submitRecipe', function(req, res, next){
-    console.log("ajax call");
-    var recipeName = req.params.recipeName;
-    var preparationTime = req.params.recipePrepTime;
-  
-    var ingredients = req.params.ingredients;
-
+router.post('/submitRecipe', function(req, res, next){
+    var recipeName = req.body.recipeName;
+    var preparationTime = req.body.recipePrepTime;
+    var ingredients = req.body[ 'ingredients[]'];
     var prepDescription = req.body.prepDescription;
+    var nextId = getNextSequence("recipeid");
 
-    var nextId = getNextSequence("userid");
-
-    db.recipes.insert({"_id": nextId, "name":recipeName, "ingredients":ingredients, "estimatedTime":preparationTime, "image":"/images/1.jpg", "wayOfPreparation":prepDescription}, function(err, result) {
-        if(err)
+    db.recipes.findOne({"name": recipeName}, function (err, recipe){
+        if(recipe)
         {
-            return res.send(err);
-            console.log("error");
+            var alert = "There is already a recipe with the same name.";
+            return res.json(alert);
         }
-        console.log("not error");
-        return res.json(result);
+
+        db.recipes.insert({"_id": nextId, "name":recipeName, "ingredients":ingredients, "estimatedTime":preparationTime, "image":"/images/1.jpg", "wayOfPreparation":prepDescription}, function(err, result) {
+            if(err)
+            {
+                return res.send(err);
+                console.log("error");
+            }
+            console.log("not error");
+            return res.json();
+        });
     });
-      
-
-
 });
 
 
@@ -147,7 +148,6 @@ function getNextSequence(name) {
           },
           function(err, ret) {if(err) return -1; return ret.seq;}
    );
-
 }
 
 module.exports = router;

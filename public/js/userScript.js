@@ -48,8 +48,6 @@ function getRecipe (elem)
             $('#myModal').modal({show:false});
             $('#myModal').modal('show');
 
-
-          
          });
 }
 
@@ -89,18 +87,22 @@ function submitRecipe()
 
 
     var parentContainter = document.getElementById('ingredientsSelect');
-    var children = parentContainter.children;
-    
-    for (var i = 0; i < length; i++)
-    {
-       if (children[i].selectedIndex != 0)
-       {
-             ingredients.push(children[i].innerHTML);
-       }
-    }
+ 
+     $('#ingredientsSelect option').each(function() {
+        if($(this).is(':selected')) 
+           ingredients.push(this.innerHTML);    
+    });
 
-    
-     $.get("/api/submitRecipe", {recipeName:recipeName, recipePrepTime:recipeTime, ingredients:ingredients, prepDescription:recipeDescription}, function(data){
-            alert("something");
+     $.post("/api/submitRecipe", {recipeName:recipeName, recipePrepTime:recipeTime, 'ingredients[]':ingredients, prepDescription:recipeDescription}, function(data){
+        if(data!=null)
+            alert("Existing recipe.");
+
+       $('#recipeName').val("");
+        $('#recipePrepTime').val("");
+        $('#prepDescription').val("");
+        $('#ingredientsSelect option').each(function() {
+            if($(this).is(':selected')) 
+                this.selected = false;  
+        });
      });
 }
