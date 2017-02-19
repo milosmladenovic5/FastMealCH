@@ -52,3 +52,12 @@ function getRecipe (elem)
           
          });
 }
+
+
+function deleteChildren()
+{
+         $('.modalSpan').empty();
+         $('#mealImage').remove();
+}
+
+function  

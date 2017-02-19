@@ -97,6 +97,24 @@
     <script src="../js/user.js"></script>
     <script src="../js/FastMealjs.js"></script>
      <script src="../js/bootstrap.min.js"></script>
+
+    <% var allRecipes = new Array();
+       var length = user.favoriteRecipes.length;
+        for (var i=0; i< user.favoriteRecipes.length; i++)
+        {
+            allRecipes.push(user.favoriteRecipes[i]);
+        }
+    %>
+    <script type= "text/javascript">
+       
+        window.onload = function()
+        {
+            if(<%= allRecipes %>.constructor === Array)
+                alert("array");
+            else
+                alert("not");
+        }
+    </script>
     <!--<script src="../js/userPanel.js"></script> -->
   </body>
   </html>
