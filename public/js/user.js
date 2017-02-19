@@ -79,7 +79,7 @@ function newRecipe()
 
 function submitRecipe()
 {
-    alert("dom");
+  
     var recipeName = $('#recipeName').val();
     var recipeTime  = $('#recipePrepTime').val();
     var recipeDescription = $('#prepDescription').val();
@@ -93,10 +93,13 @@ function submitRecipe()
     
     for (var i = 0; i < length; i++)
     {
-       ingredients.push(children[i].innerHTML);
+       if (children[i].selectedIndex != 0)
+       {
+             ingredients.push(children[i].innerHTML);
+       }
     }
 
-
+    
      $.get("/api/submitRecipe", {recipeName:recipeName, recipePrepTime:recipeTime, ingredients:ingredients, prepDescription:recipeDescription}, function(data){
             alert("something");
      });
