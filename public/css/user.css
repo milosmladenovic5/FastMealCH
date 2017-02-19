@@ -93,3 +93,18 @@ body{
 {
   float:left;
 }
+
+.btn{
+    margin-left:5px;
+    margin-right: 5px;
+}
+
+.form-group
+{
+    text-align: center;
+}
+
+#ingredientsSelect
+{
+    padding-top:10px;
+}

@@ -6,7 +6,8 @@ var db = mongojs("mongodb://localhost:27017/Recipes");
 
 
 router.get('/', function(req, res, next){
-  return res.render('index.html');
+  var user = 1;
+  return res.render('index.html',{user:user});
 });
 
 router.post('/Ingredients', function(req, res, next){

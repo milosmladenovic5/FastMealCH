@@ -10,6 +10,33 @@ router.get('/login', function(req, res, next){
   return res.render('loginOrRegister.html', {errors:null, regData:regData});
 });
 
+
+router.get('/submitRecipe', function(req, res, next){
+    console.log("ajax call");
+    var recipeName = req.params.recipeName;
+    var preparationTime = req.params.recipePrepTime;
+  
+    var ingredients = req.params.ingredients;
+
+    var prepDescription = req.body.prepDescription;
+
+    var nextId = getNextSequence("userid");
+
+    db.recipes.insert({"_id": nextId, "name":recipeName, "ingredients":ingredients, "estimatedTime":preparationTime, "image":"/images/1.jpg", "wayOfPreparation":prepDescription}, function(err, result) {
+        if(err)
+        {
+            return res.send(err);
+            console.log("error");
+        }
+        console.log("not error");
+        return res.json(result);
+    });
+      
+
+
+});
+
+
 router.post('/loginInputData', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
@@ -106,6 +133,8 @@ router.post('/register', function(req, res, next){
 
     });
 });
+
+
 
 
 function getNextSequence(name) {

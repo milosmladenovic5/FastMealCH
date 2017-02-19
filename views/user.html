@@ -30,7 +30,7 @@
                         <!-- Split button -->
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary">Change info</button>
-                               
+                            <button type="button" id="newRec" class="btn btn-primary" onclick="newRecipe()">Add new recipe</button>
                             
                             </div>
                         </div>
@@ -91,30 +91,49 @@
   </div>
 </div>
 
+
+
+<div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteChildren()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add new recipe</h4>
+      </div>
+     
+      <div id="myModalNewBody" class="modal-body">
+ 					<div class="form-group">
+						<input type="text" name="recipeName" id="recipeName" tabindex="1" class="form-control" placeholder="Name of recipe" />
+					</div>
+					<div class="form-group">
+						<input type="text" name="recipePrepTime" id="recipePrepTime" tabindex="1" class="form-control" placeholder="Preparation time" value="">
+					</div>
+                    <div class="form-group">
+						<label id="ingrLbl" >Select ingredients: </label>
+                        <select multiple="multiple" name="ingredients"  id="ingredientsSelect">
+                                                                        
+                        </select>
+					</div>
+                    <div class="form-group">
+                       <textarea name="prepDescription" id="prepDescription" rows="4" class="form-group" cols="50" placeholder="Put preparation description here..."></textarea> 
+                    </div>
+            	        <button class="btn btn-default"  onclick="submitRecipe()">Submit recipe</button>
+          </div>
+      <div id= "myModalFooter" class="modal-footer">
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
     
     <script src="../js/jquery-3.1.0.js"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/user.js"></script>
     <script src="../js/FastMealjs.js"></script>
      <script src="../js/bootstrap.min.js"></script>
 
-    <% var allRecipes = new Array();
-       var length = user.favoriteRecipes.length;
-        for (var i=0; i< user.favoriteRecipes.length; i++)
-        {
-            allRecipes.push(user.favoriteRecipes[i]);
-        }
-    %>
-    <script type= "text/javascript">
-       
-        window.onload = function()
-        {
-            if(<%= allRecipes %>.constructor === Array)
-                alert("array");
-            else
-                alert("not");
-        }
-    </script>
+
     <!--<script src="../js/userPanel.js"></script> -->
   </body>
   </html>
