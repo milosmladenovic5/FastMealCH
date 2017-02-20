@@ -63,8 +63,11 @@ router.post('/updateUserInfo', function(req, res){
   
             if(user)
             {   
-                console.log("successfull return");
-                return res.render('user.html',  {user:user});  
+               
+                db.users.findOne({username: username}, function (err, user){
+                     console.log(username);
+                       return res.render('user.html',  {user:user});  
+                });
             }
     });
 });

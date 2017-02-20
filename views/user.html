@@ -16,21 +16,21 @@
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
-                        <img src="../images/profilePicPP.png" alt="" class="img-rounded img-responsive" />
+                        <img src= <%= user.profilePicture %>  class="img-rounded img-responsive" />
                     </div>
                     <div class="col-sm-6 col-md-8" id="changeInfoDiv">
                         <h4 id="usernameLbl"><%= user.username %></h4>
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
                         </i></cite></small> -->
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i><p id="emailLbl"><%= user.email %></p>
-                          
+                        <p id="glyph">
+                            <i class="glyphicon glyphicon-envelope"> </i> <%= user.email %>
+                          </p>
                         <input type="hidden" id="hiddenPassword" value=<%= user.password %> />
                         <!-- Split button -->
                         <div class="btn-group">
                             <button type="button" id="chInfoBtn" class="btn btn-primary" onclick="changeInfoRequest()">Change info</button>
                             <button type="button" id="newRec" class="btn btn-primary" onclick="newRecipe()">Add new recipe</button>
-                            
+                            <a href="/" id="allRec" class="btn btn-primary">Find recipe</a>
                             </div>
                         </div>
                     </div>
@@ -41,10 +41,17 @@
 <div class="favRecipes container col-lg-5">
     <h1>Favorite recipes</h1>
     <div class="listOfRecipes">
-     <% for(var i=0; i<user.favoriteRecipes.length; i++) { %>
+     <% if(user.favoriteRecipes===null) {
+      
+      } 
+      else {  
+        for(var i=0; i<user.favoriteRecipes.length; i++) { %>
        <a href="#" onclick="getRecipe(this)" id= <%= user.favoriteRecipes[i] %> ><%= user.favoriteRecipes[i] %> </a>
        </br>
-    <% } %>
+    <%}
+     } %>
+
+
     </div>
 </div>
 

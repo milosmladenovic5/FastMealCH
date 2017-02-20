@@ -116,8 +116,8 @@ function uploadPic(profileRecipe)
     // ako ne pomeri ga samo ili dodaj parametar funkciji za id ili koji k**..
  
     var inputFile;
-    
-    if(profileRecipe===true)
+
+    if(profileRecipe===false)
          inputFile = document.getElementById("profPicInput");
     else 
          inputFile = document.getElementById("addPic");
@@ -127,7 +127,7 @@ function uploadPic(profileRecipe)
     {
         var data = new FormData();
         data.append("pic", inputFile.files[0]);
-        alert("inside function");
+
 
         jQuery.ajax({
         url: '/api/file_upload',
@@ -139,7 +139,7 @@ function uploadPic(profileRecipe)
         success: function(data){
             var pureData = data.replace(/['"]+/g, '');
             $("#serverFileName").val(pureData);
-            //alert($("#serverFileName").val());
+           
         }
         });
     }
@@ -156,6 +156,7 @@ function changeInfoRequest()
     usernameInp.value = usernameLbl;
     usernameInp.setAttribute("readonly","readonly");
     usernameInp.id = "usernameInp";
+    usernameInp.classList= "form-control";
 
     var password = $('#hiddenPassword').val();
     var email = $('#emailLbl').html();
@@ -165,18 +166,22 @@ function changeInfoRequest()
     $('#chInfoBtn').remove();
     $('#emailLbl').remove();
     $('#profilePic').remove();
+    $('#newRec').remove();
+    $('#glyph').remove();
 
     var passInput = document.createElement('input');
     passInput.type = "text";
     passInput.value = password;
     passInput.name = "password";
     passInput.id = "passwordInp";
+    passInput.classList= "form-control";
 
     var emailInput = document.createElement('input');
     emailInput.type = "text";
     emailInput.value = email;
     emailInput.name = "email";
     emailInput.id   = "email";
+    emailInput.classList= "form-control";
 
     var inputPic = document.createElement('input');
     inputPic.type = "file";
@@ -191,26 +196,42 @@ function changeInfoRequest()
     inputPicBtn.id = "";
     inputPicBtn.onclick = function(){
         var bool = false;
-        alert(bool);
         uploadPic(bool);
     };    
     inputPicBtn.innerHTML = "Upload pic";
 
     var submitUpdates = document.createElement('button');
     submitUpdates.classList = "btn btn-danger";
+    submitUpdates.type = "button";
+    submitUpdates.id = "submitBtn";
     submitUpdates.onclick = function(){
         changeInfo();
     };
     submitUpdates.innerHTML = "Submit changes";
 
+    $('#changeInfoDiv').append("</br>");
+    $('#changeInfoDiv').append("<label>Username:</label>");
     document.getElementById('changeInfoDiv').appendChild(usernameInp);
+    
+    $('#changeInfoDiv').append("</br>");
+    $('#changeInfoDiv').append("<label>Password:</label>");
     document.getElementById('changeInfoDiv').appendChild(passInput);
+
+    $('#changeInfoDiv').append("</br>");
+    $('#changeInfoDiv').append("<label>E-mail address:</label>");
     document.getElementById('changeInfoDiv').appendChild(emailInput);
+
+    $('#changeInfoDiv').append("</br>");
+    $('#changeInfoDiv').append("<label>Profile picture:</label>");
     document.getElementById('changeInfoDiv').appendChild(inputPic);
+
+     $('#changeInfoDiv').append("</br>");
     document.getElementById('changeInfoDiv').appendChild(inputPicBtn);
+
+    $('#changeInfoDiv').append("</br>");
     document.getElementById('changeInfoDiv').appendChild(submitUpdates);
 
-    alert(usernameLbl+","+password+","+email+","+picture);
+    $('#changeInfoDiv').append("</br>");
 }
 
 function changeInfo()
@@ -220,11 +241,9 @@ function changeInfo()
     var userPic = "../images/" + $("#serverFileName").val();
     var userEmail  = $('#email').val();
 
-    alert($("#serverFileName").val());
-    alert(userPass);
 
     $.post("/api/updateUserInfo", {username:username, userPass:userPass, userPic:userPic, userEmail:userEmail}, function(data){
-        
+        location.reload();
     });
 
 }
