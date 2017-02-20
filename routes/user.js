@@ -19,6 +19,7 @@ router.post('/submitRecipe', function(req, res, next){
     var preparationTime = req.body.recipePrepTime;
     var ingredients = req.body[ 'ingredients[]'];
     var prepDescription = req.body.prepDescription;
+    var image = req.body.image;
     var nextId = getNextSequence("recipeid");
 
     db.recipes.findOne({"name": recipeName}, function (err, recipe){
@@ -28,7 +29,7 @@ router.post('/submitRecipe', function(req, res, next){
             return res.json(alert);
         }
 
-        db.recipes.insert({"_id": nextId, "name":recipeName, "ingredients":ingredients, "estimatedTime":preparationTime, "image":"/images/1.jpg", "wayOfPreparation":prepDescription}, function(err, result) {
+        db.recipes.insert({"_id": nextId, "name":recipeName, "ingredients":ingredients, "estimatedTime":preparationTime, "image":image, "wayOfPreparation":prepDescription}, function(err, result) {
             if(err)
             {
                 return res.send(err);

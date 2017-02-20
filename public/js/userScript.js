@@ -93,8 +93,9 @@ function submitRecipe()
            ingredients.push(this.innerHTML);    
     });
 
+    var image = "../images/" + $("#serverFileName").val(); // vidi da li radi ova putanja kad prikazujes
 
-     $.post("/api/submitRecipe", {recipeName:recipeName, recipePrepTime:recipeTime, 'ingredients[]':ingredients, prepDescription:recipeDescription}, function(data){
+     $.post("/api/submitRecipe", {recipeName:recipeName, recipePrepTime:recipeTime, 'ingredients[]':ingredients, prepDescription:recipeDescription, image:image}, function(data){
         if(data!=null)
             alert("Existing recipe.");
 
@@ -110,6 +111,9 @@ function submitRecipe()
 
 function uploadPic()
 {
+    // rezultat je u hidden polju u modal-u 
+    // valjda mozes njega da iskoristis na istu foru i za profilnu sliku korisnika
+    // ako ne pomeri ga samo ili dodaj parametar funkciji za id ili koji k**..
     var inputFile = document.getElementById("addPic");
     if(inputFile.files.length != 0)
     {
@@ -126,7 +130,7 @@ function uploadPic()
         success: function(data){
             //alert(data);
             $("#serverFileName").val(data);
-            alert($("#serverFileName").val());
+            //alert($("#serverFileName").val());
         }
         });
     }
