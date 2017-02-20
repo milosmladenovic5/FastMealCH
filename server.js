@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+var multer  = require('multer');
+var fs = require("fs");
 
 var index = require('./routes/index');
 var user = require('./routes/user')
@@ -38,7 +40,7 @@ app.use(expressValidator({
     };
   }
 }));
-
+//app.use(multer({dest:'./images/'}).single('singleInputFileName'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //session

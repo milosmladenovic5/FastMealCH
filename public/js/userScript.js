@@ -93,6 +93,7 @@ function submitRecipe()
            ingredients.push(this.innerHTML);    
     });
 
+
      $.post("/api/submitRecipe", {recipeName:recipeName, recipePrepTime:recipeTime, 'ingredients[]':ingredients, prepDescription:recipeDescription}, function(data){
         if(data!=null)
             alert("Existing recipe.");
@@ -105,4 +106,28 @@ function submitRecipe()
                 this.selected = false;  
         });
      });
+}
+
+function uploadPic()
+{
+    var inputFile = document.getElementById("addPic");
+    if(inputFile.files.length != 0)
+    {
+        var data = new FormData();
+        data.append("pic", inputFile.files[0]);
+
+        jQuery.ajax({
+        url: '/api/file_upload',
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function(data){
+            //alert(data);
+            $("#serverFileName").val(data);
+            alert($("#serverFileName").val());
+        }
+        });
+    }
 }

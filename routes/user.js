@@ -3,6 +3,9 @@ var router  = express.Router();
 var mongojs = require('mongojs');
 var ObjectId = mongojs.ObjectId;
 var db = mongojs("mongodb://localhost:27017/Recipes");
+var multer  = require('multer');
+var upload = multer({dest:'./public/images/'});
+var fs = require("fs");
 
 
 router.get('/login', function(req, res, next){
@@ -134,6 +137,17 @@ router.post('/register', function(req, res, next){
 
     });
 });
+
+router.post('/file_upload', upload.single('pic'), function (req, res) {
+
+   console.log(req.file.filename);
+   console.log(req.file.path);
+   console.log(req.file.type);
+
+  
+   return res.end( JSON.stringify( req.file.filename ) );
+   
+})
 
 
 
