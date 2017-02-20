@@ -6,8 +6,24 @@ var db = mongojs("mongodb://localhost:27017/Recipes");
 
 
 router.get('/', function(req, res, next){
-  var user = 1;
-  return res.render('index.html',{user:user});
+
+  if(req.session.userId === undefined)
+  {
+      console.log("no session");
+      var user = null;
+      return res.render('index.html',{});
+  }
+  else
+  {
+      console.log("there is session");
+      var userId = req.session.userId;
+      db.users.findOne({_id: userId}, function(err, user){
+            return res.render('index.html',{user:user});
+       }); 
+  } 
+
+
+
 });
 
 router.post('/Ingredients', function(req, res, next){

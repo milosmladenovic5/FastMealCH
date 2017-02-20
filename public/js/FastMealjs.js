@@ -110,8 +110,6 @@
                     allRecipes.push(data[index]);
             });
             showMatchedRecipes(allRecipes);
-
-          // window.location.replace("http://stackoverflow.com");
         });   
     }
 
@@ -211,8 +209,8 @@
 
             var moreInfoLink  = document.createElement('button');
             moreInfoLink.innerHTML = "More information";
-            moreInfoLink.classList = "btn btn-success";
-            moreInfoLink.id="moreBtn";
+            moreInfoLink.classList = "btn btn-success moreBtn";
+            moreInfoLink.id="moreBtn"+recName;
             var recName = recipes[i].name;
 
             moreInfoLink.onclick = function(){
@@ -232,7 +230,6 @@
         }     
         
      }
-
 
      function openRecipe(name)
      {
@@ -283,8 +280,6 @@
             $('#myModal').modal({show:false});
             $('#myModal').modal('show');
 
-
-          
          });
      }
 

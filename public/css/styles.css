@@ -218,7 +218,7 @@ label
   align-content: center;
 }
 
-#moreBtn{
+.moreBtn{
   margin-left: 10px;
   margin-top:5%;
 }

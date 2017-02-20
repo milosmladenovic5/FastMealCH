@@ -72,10 +72,6 @@ router.post('/loginInputData', function(req, res) {
     errors.push({ param: ' ', msg: 'No such user exists!', value: ' ' })
 
     return res.render('loginOrRegister.html', {errors:errors, regData:regData}); 
-
-  
-    
-
   });
 
 });
@@ -140,14 +136,7 @@ router.post('/register', function(req, res, next){
 });
 
 router.post('/file_upload', upload.single('pic'), function (req, res) {
-
-   console.log(req.file.filename);
-   console.log(req.file.path);
-   console.log(req.file.type);
-
-  
-   return res.end( JSON.stringify( req.file.filename ) );
-   
+   return res.end( JSON.stringify( req.file.filename ) );   
 })
 
 

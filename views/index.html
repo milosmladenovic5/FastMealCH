@@ -27,7 +27,10 @@
     
     </div>
     <input type="button" class="btn btn-danger" value="Get Recipes" id="getRecipes" onclick="returnAllRecipes()"></input>
-    <a href = "/api/login" class="btn btn-danger"  id="login">Login/Register </a>
+
+    <% if(user===null){ %>
+      <a href = "/api/login" class="btn btn-danger"  id="login">Login/Register </a>
+    <% } %>
   </div>
 
   <div id = "panelContainer" class="container col-lg-4 col-md-3">
