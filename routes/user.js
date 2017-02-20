@@ -14,6 +14,8 @@ router.get('/login', function(req, res, next){
 });
 
 
+
+
 router.post('/submitRecipe', function(req, res, next){
     var recipeName = req.body.recipeName;
     var preparationTime = req.body.recipePrepTime;
@@ -123,10 +125,11 @@ router.post('/register', function(req, res, next){
                             res.send(err);
                         
                         //da bi ga ulogovalo cim se USPESNO registruje...
-                        req.session.userId = ObjectId(nextId);
-                        var user = {_id: ObjectId(nextId), username:username, password:password, email:email, profilePicture:" ", favoriteRecipes:[], shortDescription:" "}
+                        db.users.findOne({username: username}, function (err, user){
                         
+                        req.session.userId = user._id;
                         return res.render('user.html',  {user:user});
+                        });
 
                     });
               

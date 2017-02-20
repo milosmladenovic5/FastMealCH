@@ -1,29 +1,36 @@
 var express  = require('express');
 var router  = express.Router();
 var mongojs = require('mongojs');
+var ObjectId = mongojs.ObjectId;
 
 var db = mongojs("mongodb://localhost:27017/Recipes");
 
 
 router.get('/', function(req, res, next){
 
-  if(req.session.userId === undefined)
+  if(req.session.userId === undefined || req.session.userId === null)
   {
       console.log("no session");
       var user = null;
-      return res.render('index.html',{});
+      return res.render('index.html', {user:user});
   }
   else
   {
-      console.log("there is session");
+      console.log(req.session.userId);
       var userId = req.session.userId;
-      db.users.findOne({_id: userId}, function(err, user){
+      db.users.findOne({_id: ObjectId(userId)}, function(err, user){
+        console.log(user.username);
             return res.render('index.html',{user:user});
        }); 
   } 
 
 
 
+});
+
+router.get('/logout', function(req, res, next){
+  req.session.userId = null;
+  return res.render('index.html', {user:null});
 });
 
 router.post('/Ingredients', function(req, res, next){
