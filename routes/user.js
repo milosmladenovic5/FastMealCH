@@ -44,6 +44,34 @@ router.post('/submitRecipe', function(req, res, next){
 });
 
 
+
+router.post('/updateUserInfo', function(req, res){
+    console.log("function called");
+
+    var userPass = req.body.userPass;
+    var userEmail = req.body.userEmail;
+    var username = req.body.username;
+    var userPic = req.body.userPic;
+    
+    console.log(userPass);
+
+    db.users.update({"username":username}, {$set: {email:userEmail, profilePicture:userPic, password:userPass}} , function(err,user){
+            if(err)
+            {
+                res.send(err);
+            }
+  
+            if(user)
+            {   
+                console.log("successfull return");
+                return res.render('user.html',  {user:user});  
+            }
+    });
+});
+
+
+
+
 router.post('/loginInputData', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;

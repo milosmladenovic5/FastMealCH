@@ -18,18 +18,17 @@
                     <div class="col-sm-6 col-md-4">
                         <img src="../images/profilePicPP.png" alt="" class="img-rounded img-responsive" />
                     </div>
-                    <div class="col-sm-6 col-md-8">
-                        <h4><%= user.username %></h4>
-                            
+                    <div class="col-sm-6 col-md-8" id="changeInfoDiv">
+                        <h4 id="usernameLbl"><%= user.username %></h4>
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
                         </i></cite></small> -->
                         <p>
-                            <i class="glyphicon glyphicon-envelope"></i><%= user.email %>
-                            <br />
+                            <i class="glyphicon glyphicon-envelope"></i><p id="emailLbl"><%= user.email %></p>
                           
+                        <input type="hidden" id="hiddenPassword" value=<%= user.password %> />
                         <!-- Split button -->
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary">Change info</button>
+                            <button type="button" id="chInfoBtn" class="btn btn-primary" onclick="changeInfoRequest()">Change info</button>
                             <button type="button" id="newRec" class="btn btn-primary" onclick="newRecipe()">Add new recipe</button>
                             
                             </div>
@@ -85,6 +84,7 @@
       </div>
       <div id= "modalFooter" class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteChildren()">Close</button>
+
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>

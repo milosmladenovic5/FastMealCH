@@ -109,16 +109,25 @@ function submitRecipe()
      });
 }
 
-function uploadPic()
+function uploadPic(profileRecipe)
 {
     // rezultat je u hidden polju u modal-u 
     // valjda mozes njega da iskoristis na istu foru i za profilnu sliku korisnika
     // ako ne pomeri ga samo ili dodaj parametar funkciji za id ili koji k**..
-    var inputFile = document.getElementById("addPic");
+ 
+    var inputFile;
+    
+    if(profileRecipe===true)
+         inputFile = document.getElementById("profPicInput");
+    else 
+         inputFile = document.getElementById("addPic");
+
+        
     if(inputFile.files.length != 0)
     {
         var data = new FormData();
         data.append("pic", inputFile.files[0]);
+        alert("inside function");
 
         jQuery.ajax({
         url: '/api/file_upload',
@@ -134,4 +143,88 @@ function uploadPic()
         }
         });
     }
+}
+
+
+
+function changeInfoRequest()
+{
+    var usernameLbl = document.getElementById('usernameLbl').innerHTML;
+    $('#usernameLbl').remove();
+    
+    var usernameInp  = document.createElement('input');
+    usernameInp.value = usernameLbl;
+    usernameInp.setAttribute("readonly","readonly");
+    usernameInp.id = "usernameInp";
+
+    var password = $('#hiddenPassword').val();
+    var email = $('#emailLbl').html();
+    var picture = $('#profilePic').attr('src');
+
+
+    $('#chInfoBtn').remove();
+    $('#emailLbl').remove();
+    $('#profilePic').remove();
+
+    var passInput = document.createElement('input');
+    passInput.type = "text";
+    passInput.value = password;
+    passInput.name = "password";
+    passInput.id = "passwordInp";
+
+    var emailInput = document.createElement('input');
+    emailInput.type = "text";
+    emailInput.value = email;
+    emailInput.name = "email";
+    emailInput.id   = "email";
+
+    var inputPic = document.createElement('input');
+    inputPic.type = "file";
+    inputPic.classList = "btn btn-default";
+    inputPic.name = "profPic";
+    inputPic.id = "profPicInput";
+    inputPic.setAttribute("accept", "image/*");
+
+    var inputPicBtn  = document.createElement('button');
+    inputPicBtn.classList = "btn btn-danger";
+    inputPicBtn.type = "button";
+    inputPicBtn.id = "";
+    inputPicBtn.onclick = function(){
+        var bool = false;
+        alert(bool);
+        uploadPic(bool);
+    };    
+    inputPicBtn.innerHTML = "Upload pic";
+
+    var submitUpdates = document.createElement('button');
+    submitUpdates.classList = "btn btn-danger";
+    submitUpdates.onclick = function(){
+        changeInfo();
+    };
+    submitUpdates.innerHTML = "Submit changes";
+
+    document.getElementById('changeInfoDiv').appendChild(usernameInp);
+    document.getElementById('changeInfoDiv').appendChild(passInput);
+    document.getElementById('changeInfoDiv').appendChild(emailInput);
+    document.getElementById('changeInfoDiv').appendChild(inputPic);
+    document.getElementById('changeInfoDiv').appendChild(inputPicBtn);
+    document.getElementById('changeInfoDiv').appendChild(submitUpdates);
+
+    alert(usernameLbl+","+password+","+email+","+picture);
+}
+
+function changeInfo()
+{
+    var userPass = $('#passwordInp').val();
+    var username = $('#usernameInp').val();
+    var userPic = "../images/" + $("#serverFileName").val();
+    var userEmail  = $('#email').val();
+
+    alert($("#serverFileName").val());
+    alert(userPass);
+
+    $.post("/api/updateUserInfo", {username:username, userPass:userPass, userPic:userPic, userEmail:userEmail}, function(data){
+        
+    });
+
 }
