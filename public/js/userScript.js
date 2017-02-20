@@ -128,8 +128,8 @@ function uploadPic()
         processData: false,
         type: 'POST',
         success: function(data){
-            //alert(data);
-            $("#serverFileName").val(data);
+            var pureData = data.replace(/['"]+/g, '');
+            $("#serverFileName").val(pureData);
             //alert($("#serverFileName").val());
         }
         });

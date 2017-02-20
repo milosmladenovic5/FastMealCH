@@ -102,6 +102,19 @@
         }
     }
 
+    function returnAllRecipes()
+    {
+        $.get("/Recipes", {}, function(data){    
+            var allRecipes = new Array();
+            $.each(data, function(index, value){
+                    allRecipes.push(data[index]);
+            });
+            showMatchedRecipes(allRecipes);
+
+          // window.location.replace("http://stackoverflow.com");
+        });   
+    }
+
     function getRecipes()
     {
         //var selectedIngredients = selectIngredients();
