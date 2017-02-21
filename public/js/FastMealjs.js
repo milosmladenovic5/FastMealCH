@@ -239,8 +239,11 @@
         alert(name);
 
         $.get("/GetRecipe/"+name,{}, function(data){
+            alert(data.userStatus);
+
             var recipeName = data.name;
-            
+            var userStatus = data.userStatus;
+
             $('#myModalLabel').html(data.name);
 
             var modBody = document.getElementById("imgContainer");
@@ -280,6 +283,29 @@
             descriptionParent.innerHTML = data.wayOfPreparation;        
 
 
+            var favBtn = document.createElement('button');
+            favBtn.id = "favBtn";
+            favBtn.classList = "btn btn-success ";
+            favBtn.type = "button";
+            alert(userStatus);
+
+            if(userStatus===2)
+            {
+                favBtn.onclick = function() {
+                    addToFavorites();
+                }
+                favBtn.innerHTML = "Add to favorites";
+                $('#modalFooter').prepend(favBtn);
+            }
+            else if(userStatus===3)
+            {
+                 favBtn.onclick = function(){
+                         removeFromFavorites();
+                 };    
+                 favBtn.innerHTML = "Remove from Favorites";
+                 $('#modalFooter').prepend(favBtn);
+            }          
+
             $('#myModal').modal({show:false});
             $('#myModal').modal('show');
 
@@ -293,6 +319,31 @@
          $('#myModalLabel').html("");
      }
 
+     function addToFavorites()      // dodaje korisniku recept u bazi, i menja dugme na remove
+     {
+         var recipeName = $('#myModalLabel').html(); 
+
+        $.post("/api/addToFavorites", {recipeName:recipeName}, function(data) {
+            var removeButton  = document.getElementById('favBtn');
+            removeButton.onclick = function(){
+               removeFromFavorites();
+            };    
+            removeButton.innerHTML = "Remove from Favorites";
+        });
+     }
+
+     function removeFromFavorites()      // dodaje korisniku recept u bazi, i menja dugme na remove
+     {
+         var recipeName = $('#myModalLabel').html(); 
+
+        $.post("/api/removeFromFavorites", {recipeName:recipeName}, function(data) {
+            var addBtn  = document.getElementById('favBtn');
+            addBtn.onclick = function(){
+               addToFavorites();
+            };    
+            addBtn.innerHTML = "Add to Favorites";
+        });
+     }
 
     
  }

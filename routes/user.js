@@ -197,13 +197,18 @@ router.post('/addToFavorites', function (req, res) {
       var userId = req.session.userId;
       var recipeName = req.body.recipeName;
       db.users.update({_id: ObjectId(userId)},  { $push: { favoriteRecipes: recipeName } } , function(err,user){
-            return res.end("Success!!")
-
+            return res.end("Success!!");
        }); 
 });
 
 
-
+router.post('/removeFromFavorites', function (req, res) {
+      var userId = req.session.userId;
+      var recipeName = req.body.recipeName;
+      db.users.update({_id: ObjectId(userId)},  { $pull: { favoriteRecipes: recipeName } } , function(err,user){
+            return res.end("Success!!");
+       }); 
+});
 
 
 function getNextSequence(name) {

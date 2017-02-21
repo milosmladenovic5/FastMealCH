@@ -56,7 +56,7 @@ router.get('/GetRecipe/:name', function(req, res){
   db.recipes.findOne({name: req.params.name}, function(err, recipe1){
     if(err)
       return res.send(err);
-      
+
     var recipe = recipe1;
     
       var userId = req.session.userId;
@@ -70,14 +70,14 @@ router.get('/GetRecipe/:name', function(req, res){
       db.users.findOne({_id: ObjectId(userId)}, function(err, user){
         console.log(user.username);
 
-        var recipeExteded;
+        var recipeExtended;
 
         if(user.favoriteRecipes.indexOf(recipe.name) === -1)
             recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userStatus:2 };
         else
             recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userStatus:3 };
 
-        return res.json(recipeExteded);
+        return res.json(recipeExtended);
 
         
       // userStatus : 1 - korisnik nije ulogovan
