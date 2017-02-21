@@ -24,6 +24,8 @@ router.post('/submitRecipe', function(req, res, next){
     var image = req.body.image;
     var nextId = getNextSequence("recipeid");
 
+    var username = req.session.username;
+
     db.recipes.findOne({"name": recipeName}, function (err, recipe){
         if(recipe)
         {
@@ -37,8 +39,12 @@ router.post('/submitRecipe', function(req, res, next){
                 return res.send(err);
                 console.log("error");
             }
-            console.log("not error");
-            return res.json();
+
+            db.users.update({"username":username}, {$push: {"addedRecipes":recipeName}}, function(err,data){
+                console.log("kucina");
+               return res.json();
+            });
+
         });
     });
 });
@@ -52,10 +58,11 @@ router.post('/updateUserInfo', function(req, res){
     var userEmail = req.body.userEmail;
     var username = req.body.username;
     var userPic = req.body.userPic;
+    var shortDescription = req.body.shortDescription;
     
     console.log(userPass);
 
-    db.users.update({"username":username}, {$set: {email:userEmail, profilePicture:userPic, password:userPass}} , function(err,user){
+    db.users.update({"username":username}, {$set: {email:userEmail, profilePicture:userPic, password:userPass, shortDescription:shortDescription}} , function(err,user){
             if(err)
             {
                 res.send(err);
@@ -118,6 +125,7 @@ router.post('/loginInputData', function(req, res) {
         req.session.userId = user._id;
         req.session.username = user.username;
         req.session.password = user.password;
+        console.log(user.addedRecipes);
         return res.render('user.html',  {user:user}); 
       //req.session.user = user;
     }
@@ -170,7 +178,7 @@ router.post('/register', function(req, res, next){
 
                
                     var nextId = getNextSequence("userid");
-                    db.users.insert({"_id": nextId, "username":username, "password":password, "email":email, "profilePicture":" ", "favoriteRecipes":[""], "shortDescription":" "}, function(err, result) {
+                    db.users.insert({"_id": nextId, "username":username, "password":password, "email":email, "profilePicture":" ", "favoriteRecipes":[""], "addedRecipes":[""], "shortDescription":" "}, function(err, result) {
 
                         if(err)
                             res.send(err);

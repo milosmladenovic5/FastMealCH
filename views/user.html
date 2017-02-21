@@ -19,13 +19,16 @@
                         <img src= <%= user.profilePicture %>  class="img-rounded img-responsive" />
                     </div>
                     <div class="col-sm-6 col-md-8" id="changeInfoDiv">
-                        <h4 id="usernameLbl"><%= user.username %></h4>
+
+                     <span class="thisCont"> <h4 id="usernameLbl"><%= user.username %></h4> </span>
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
                         </i></cite></small> -->
                         <p id="glyph">
                             <i class="glyphicon glyphicon-envelope"> </i> <%= user.email %>
                           </p>
                         <input type="hidden" id="hiddenPassword" value=<%= user.password %> />
+                        <label>Description:</label>
+                        <p id="userDescription" ><%= user.shortDescription %> </p>
                         <!-- Split button -->
                         <div class="btn-group">
                             <button type="button" id="chInfoBtn" class="btn btn-primary" onclick="changeInfoRequest()">Change info</button>
@@ -46,6 +49,24 @@
       <%  } else {  
         for(var i=0; i<user.favoriteRecipes.length; i++) { %>
        <a href="#" onclick="getRecipe(this)" id= <%= user.favoriteRecipes[i] %> ><%= user.favoriteRecipes[i] %> </a>
+       </br>
+    <%}
+     } %>
+
+
+    </div>
+</div>
+
+</br>
+
+<div class="favRecipes container col-lg-5">
+    <h1>Added recipes</h1>
+    <div class="listOfAddedRecipes">
+     <% if(user.addedRecipes===null) { %>
+        <h4>GOVNO</h4>
+      <%  } else {  
+        for(var i=0; i<user.addedRecipes.length; i++) { %>
+       <a href="#" onclick="getRecipe(this)" id= <%= user.addedRecipes[i] %> ><%= user.addedRecipes[i] %> </a>
        </br>
     <%}
      } %>
@@ -144,7 +165,6 @@
     
     <script src="../js/jquery-3.1.0.js"></script>
     <script src="../js/userScript.js"></script>
-    <script src="../js/FastMealjs.js"></script>
      <script src="../js/bootstrap.min.js"></script>
 
 

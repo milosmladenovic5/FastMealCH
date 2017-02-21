@@ -193,7 +193,7 @@ label
   position:center;
 }
 
-#getRecipes , #login, #logout
+#getRecipes , #login, #logout, #viewProfile
 {
   margin-left:15px;
   margin-bottom: 5px;
@@ -263,4 +263,9 @@ label
 
 .innerLabels{
   color:#000000;
+}
+
+#usernameLbl{
+  display:inline;
+  font-weight: bold;
 }

@@ -6,6 +6,9 @@ function getRecipe (elem)
       $.get("/GetRecipe/"+name,{}, function(data){
             var recipeName = data.name;
             
+            var userStatus = data.userStatus;
+
+
             $('#myModalLabel').html(data.name);
 
             var modBody = document.getElementById("imgContainer");
@@ -44,6 +47,15 @@ function getRecipe (elem)
             var descriptionParent = document.getElementById('preparation');
             descriptionParent.innerHTML = data.wayOfPreparation;        
 
+            var favBtn = document.createElement('button');
+            favBtn.id = "favBtn";
+            favBtn.classList = "btn btn-success ";
+            favBtn.type = "button";
+            favBtn.onclick = function(){
+                   removeFromFavorites();
+            };    
+            favBtn.innerHTML = "Remove from Favorites";
+            $('#modalFooter').prepend(favBtn);
 
             $('#myModal').modal({show:false});
             $('#myModal').modal('show');
@@ -56,6 +68,7 @@ function deleteChildren()
 {
          $('.modalSpan').empty();
          $('#mealImage').remove();
+         $('#favBtn').remove();
 }
 
 function newRecipe()
@@ -211,6 +224,12 @@ function changeInfoRequest()
     };
     submitUpdates.innerHTML = "Submit changes";
 
+    var textDescrip = document.createElement('textarea');
+    textDescrip.setAttribute("rows","4");
+    textDescrip.setAttribute("cols","50");
+    textDescrip.id = "textareaDescrip";
+    
+
     $('#changeInfoDiv').append("</br>");
     $('#changeInfoDiv').append("<label>Username:</label>");
     document.getElementById('changeInfoDiv').appendChild(usernameInp);
@@ -227,6 +246,11 @@ function changeInfoRequest()
     $('#changeInfoDiv').append("<label>Profile picture:</label>");
     document.getElementById('changeInfoDiv').appendChild(inputPic);
 
+    $('#changeInfoDiv').append("</br>");
+    $('#changeInfoDiv').append("<label>Short description:</label>");
+    $('#changeInfoDiv').append("</br>");
+    document.getElementById('changeInfoDiv').appendChild(textDescrip);
+
      $('#changeInfoDiv').append("</br>");
     document.getElementById('changeInfoDiv').appendChild(inputPicBtn);
 
@@ -242,10 +266,19 @@ function changeInfo()
     var username = $('#usernameInp').val();
     var userPic = "../images/" + $("#serverFileName").val();
     var userEmail  = $('#email').val();
+    var shortDescription = $('#textareaDescrip').val();
 
 
-    $.post("/api/updateUserInfo", {username:username, userPass:userPass, userPic:userPic, userEmail:userEmail}, function(data){
+    $.post("/api/updateUserInfo", {username:username, userPass:userPass, userPic:userPic, userEmail:userEmail, shortDescription:shortDescription}, function(data){
         location.reload();
     });
 
+}
+
+function removeFromFavorites()
+{
+    var recipeName = $('#myModalLabel').html(); 
+    $.post("/api/removeFromFavorites", {recipeName:recipeName}, function(data) {
+          location.reload();
+    });
 }

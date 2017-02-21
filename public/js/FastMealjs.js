@@ -236,10 +236,8 @@
         //klik na link o vise informacija dovesce u ovu funkciju koja ce da izbaci modal
         //sa svim informacijama o receptu
         var name = btnId.id.replace("moreBtn",'');
-        alert(name);
 
         $.get("/GetRecipe/"+name,{}, function(data){
-            alert(data.userStatus);
 
             var recipeName = data.name;
             var userStatus = data.userStatus;
@@ -287,7 +285,6 @@
             favBtn.id = "favBtn";
             favBtn.classList = "btn btn-success ";
             favBtn.type = "button";
-            alert(userStatus);
 
             if(userStatus===2)
             {
@@ -317,6 +314,8 @@
          $('.modalSpan').empty();
          $('#mealImage').remove();
          $('#myModalLabel').html("");
+         $('#favBtn').remove();
+
      }
 
      function addToFavorites()      // dodaje korisniku recept u bazi, i menja dugme na remove

@@ -49,6 +49,7 @@ body{
     float:right;
     text-align: center;
     border:2px darkcyan dashed;
+    margin:10px;
 }
 
 .listOfRecipes{
