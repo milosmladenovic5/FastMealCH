@@ -12,8 +12,9 @@ color: #999;
 .well 
 {
     border-radius:0px;
-    background:forestgreen;
-    opacity: 0.9;
+    background:darkolivegreen;
+    opacity: 0.90;
+    border:none;
    
 }
 
@@ -29,7 +30,7 @@ color: #999;
 
 
 body{
-  background:url('/images/food2.jpeg');
+  background:url('/images/food3.jpg');
    background-repeat:no-repeat;
    background-size:cover;
 
@@ -50,6 +51,7 @@ body{
     text-align: center;
     border:2px darkcyan dashed;
     margin:10px;
+
 }
 
 .listOfRecipes{
@@ -112,4 +114,22 @@ body{
 
 #submitBtn{
     margin-top:5px;
+}
+
+h1{
+    color:white;
+}
+
+.listOfAddedRecipes > a
+{
+    color:dodgerblue;
+}
+
+
+.addRe{
+    margin-top:100px;
+}
+
+#logout{
+    margin-top:10px;
 }

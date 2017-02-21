@@ -37,12 +37,10 @@ router.post('/submitRecipe', function(req, res, next){
             if(err)
             {
                 return res.send(err);
-                console.log("error");
             }
 
             db.users.update({"username":username}, {$push: {"addedRecipes":recipeName}}, function(err,data){
-                console.log("kucina");
-               return res.json();
+                   return res.json();
             });
 
         });
@@ -72,7 +70,6 @@ router.post('/updateUserInfo', function(req, res){
             {   
                
                 db.users.findOne({username: username}, function (err, user){
-                     console.log(username);
                        return res.render('user.html',  {user:user});  
                 });
             }
@@ -178,20 +175,13 @@ router.post('/register', function(req, res, next){
 
                
                     var nextId = getNextSequence("userid");
-                    db.users.insert({"_id": nextId, "username":username, "password":password, "email":email, "profilePicture":" ", "favoriteRecipes":[""], "addedRecipes":[""], "shortDescription":" "}, function(err, result) {
-
+                    db.users.insert({"_id": nextId, "username":username, "password":password, "email":email, "profilePicture":"../images/user.png", "favoriteRecipes":[""], "addedRecipes":[""], "shortDescription":"No description"}, function(err, result) {
                         if(err)
                             res.send(err);
-                        
-                        //da bi ga ulogovalo cim se USPESNO registruje...
-                        db.users.findOne({username: username}, function (err, user){
-                        
-                        req.session.userId = user._id;
-                        return res.render('user.html',  {user:user});
-                        });
 
-                    });
-              
+                    var regData = {username:" ", password:" ", email:" ", cpassword:" " };
+                    return res.render('loginOrRegister.html', {errors:null, regData:regData});
+                    });    
         });
 
     });

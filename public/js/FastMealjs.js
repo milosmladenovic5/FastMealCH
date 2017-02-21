@@ -115,8 +115,8 @@
 
     function getRecipes()
     {
-        //var selectedIngredients = selectIngredients();
-        var selectedIngredients = ["brašno", "mleko", "jaja", "so", "suncokretovo ulje"];
+        var selectedIngredients = selectIngredients();
+        //var selectedIngredients = ["brašno", "mleko", "jaja", "so", "suncokretovo ulje"];
        
         $.get("/Recipes", {}, function(data){    
             var allRecipes = new Array();

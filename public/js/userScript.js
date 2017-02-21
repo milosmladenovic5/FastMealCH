@@ -69,6 +69,7 @@ function deleteChildren()
          $('.modalSpan').empty();
          $('#mealImage').remove();
          $('#favBtn').remove();
+         $('#alrt').remove();
 }
 
 function newRecipe()
@@ -98,6 +99,19 @@ function submitRecipe()
     var ingredients = new Array();
     var length = $('#ingredientsSelect option').length;
 
+    if(recipeName.length === 0 || recipeTime.length === 0 || recipeDescription.length === 0 || length === 0 )
+    {
+        // <div class="alert alert-danger"><%= errors[i].msg %></div>\
+        $('#alrt').remove();
+        var alertMessage = document.createElement("div");
+        alertMessage.classList = "alert alert-danger";
+        alertMessage.id = "alrt";
+        alertMessage.innerHTML = "Some of the required fields is empty!";
+
+        $("#myModalFooter").prepend(alertMessage);
+        return;
+    }
+
 
     var parentContainter = document.getElementById('ingredientsSelect');
  
@@ -108,17 +122,8 @@ function submitRecipe()
 
     var image = "../images/" + $("#serverFileName").val(); // vidi da li radi ova putanja kad prikazujes
 
-     $.post("/api/submitRecipe", {recipeName:recipeName, recipePrepTime:recipeTime, 'ingredients[]':ingredients, prepDescription:recipeDescription, image:image}, function(data){
-        if(data!=null)
-            alert("Existing recipe.");
-
-       $('#recipeName').val("");
-        $('#recipePrepTime').val("");
-        $('#prepDescription').val("");
-        $('#ingredientsSelect option').each(function() {
-            if($(this).is(':selected')) 
-                this.selected = false;  
-        });
+     $.post("/api/submitRecipe", {recipeName:recipeName, recipePrepTime:recipeTime, 'ingredients[]':ingredients, prepDescription:recipeDescription, image:image}, function(data){    
+         location.reload();      
      });
 }
 
@@ -126,7 +131,7 @@ function uploadPic(profileRecipe)
 {
     // rezultat je u hidden polju u modal-u 
     // valjda mozes njega da iskoristis na istu foru i za profilnu sliku korisnika
-    // ako ne pomeri ga samo ili dodaj parametar funkciji za id ili koji k**..
+    // ako ne pomeri ga samo ili dodaj parametar funkciji za id ili koji 
  
     var inputFile;
 

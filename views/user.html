@@ -15,10 +15,10 @@
         <div class="">
             <div class="well well-sm">
                 <div class="row">
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-sm-8 col-md-4">
                         <img src= <%= user.profilePicture %>  class="img-rounded img-responsive" />
                     </div>
-                    <div class="col-sm-6 col-md-8" id="changeInfoDiv">
+                    <div class="col-sm-8 col-md-8" id="changeInfoDiv">
 
                      <span class="thisCont"> <h4 id="usernameLbl"><%= user.username %></h4> </span>
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -34,6 +34,7 @@
                             <button type="button" id="chInfoBtn" class="btn btn-primary" onclick="changeInfoRequest()">Change info</button>
                             <button type="button" id="newRec" class="btn btn-primary" onclick="newRecipe()">Add new recipe</button>
                             <a href="/" id="allRec" class="btn btn-primary">Find recipe</a>
+                            <a href = "/logout" class="btn btn-danger"  id="logout">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -59,7 +60,7 @@
 
 </br>
 
-<div class="favRecipes container col-lg-5">
+<div class="favRecipes addRe container col-lg-5">
     <h1>Added recipes</h1>
     <div class="listOfAddedRecipes">
      <% if(user.addedRecipes===null) { %>
@@ -151,7 +152,7 @@
                       <input type="hidden" id="serverFileName" value=""> <!-- da ne pukne ako je prazno -->
                       <!--<input type="submit" class="btn btn-default" value="Upload File" /> -->
                       <!-- </form> -->
-            	        <button class="btn btn-default" data-dismiss="modal" onclick="submitRecipe()">Submit recipe</button>
+            	        <button class="btn btn-default"  onclick="submitRecipe()">Submit recipe</button>
                       
           </div>
       <div id= "myModalFooter" class="modal-footer">
