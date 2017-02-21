@@ -50,7 +50,6 @@ router.post('/submitRecipe', function(req, res, next){
 
 
 router.post('/updateUserInfo', function(req, res){
-    console.log("function called");
 
     var userPass = req.body.userPass;
     var userEmail = req.body.userEmail;
@@ -58,7 +57,6 @@ router.post('/updateUserInfo', function(req, res){
     var userPic = req.body.userPic;
     var shortDescription = req.body.shortDescription;
     
-    console.log(userPass);
 
     db.users.update({"username":username}, {$set: {email:userEmail, profilePicture:userPic, password:userPass, shortDescription:shortDescription}} , function(err,user){
             if(err)
@@ -84,13 +82,11 @@ router.get('/myProfile', function(req, res){
      db.users.findOne({username: username, password: password}, function (err, user){
         if(err)
         {
-        //console.log(err);
         res.send(err);
         }
     
         if(user)
         {
-            console.log(user);
             return res.render('user.html',  {user:user}); 
         //req.session.user = user;
         }
@@ -122,7 +118,6 @@ router.post('/loginInputData', function(req, res) {
         req.session.userId = user._id;
         req.session.username = user.username;
         req.session.password = user.password;
-        console.log(user.addedRecipes);
         return res.render('user.html',  {user:user}); 
       //req.session.user = user;
     }

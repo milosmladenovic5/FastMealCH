@@ -44,7 +44,7 @@ app.use(expressValidator({
 app.use(express.static(path.join(__dirname, 'public')));
 
 //session
-app.use(session({secret:"Milos_SLEPI_DECAK12321321sdfsd", resave:false, saveUninitialized:true}));
+app.use(session({secret:"password", resave:false, saveUninitialized:true}));
 
 
 app.use('/', index);

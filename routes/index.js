@@ -10,16 +10,13 @@ router.get('/', function(req, res, next){
 
   if(req.session.userId === undefined || req.session.userId === null)
   {
-      console.log("no session");
       var user = {userStatus:1};
       return res.render('index.html', {user:user});
   }
   else
   {
-      console.log(req.session.userId);
       var userId = req.session.userId;
       db.users.findOne({_id: ObjectId(userId)}, function(err, user){
-        console.log(user.username);
             return res.render('index.html',{user:user});
        }); 
   } 
