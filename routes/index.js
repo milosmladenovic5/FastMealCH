@@ -11,7 +11,7 @@ router.get('/', function(req, res, next){
   if(req.session.userId === undefined || req.session.userId === null)
   {
       console.log("no session");
-      var user = null;
+      var user = {userStatus:1};
       return res.render('index.html', {user:user});
   }
   else
@@ -66,10 +66,10 @@ router.get('/GetRecipe/:name', function(req, res){
       db.users.findOne({_id: ObjectId(userId)}, function(err, user){
 
         var recipeExteded;
-        if(user.favoriteRecipes.IndexOf(recipe.name) === -1)
-            recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userHasIt:2 };
+        if(user.favoriteRecipes.indexOf(recipe.name) === -1)
+            recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userStatus:2 };
         else
-            recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userHasIt:3 };
+            recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userStatus:3 };
 
         return res.json(recipeExteded);
 

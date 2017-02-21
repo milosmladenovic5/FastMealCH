@@ -208,15 +208,13 @@
             prepTime.innerHTML = recipes[i].estimatedTime;
 
             var recName = recipes[i].name;
-            
+
             var moreInfoLink  = document.createElement('button');
             moreInfoLink.innerHTML = "More information";
             moreInfoLink.classList = "btn btn-success moreBtn";
             moreInfoLink.id="moreBtn"+recName;
-            
-
             moreInfoLink.onclick = function(){
-                    openRecipe(recName);
+                    openRecipe(this);
             };
               
 
@@ -233,10 +231,13 @@
         
      }
 
-     function openRecipe(name)
+     function openRecipe(btnId)
      {
         //klik na link o vise informacija dovesce u ovu funkciju koja ce da izbaci modal
         //sa svim informacijama o receptu
+        var name = btnId.id.replace("moreBtn",'');
+        alert(name);
+
         $.get("/GetRecipe/"+name,{}, function(data){
             var recipeName = data.name;
             
@@ -289,28 +290,10 @@
      {
          $('.modalSpan').empty();
          $('#mealImage').remove();
+         $('#myModalLabel').html("");
      }
 
-     function addToFavorites()      // dodaje korisniku recept u bazi, i menja dugme na remove
-     {
-         var recipeName = $('#myModalLabel').html(); 
 
-         
-     $.post("/api/addToFavorites", {recipeName:recipeName}, function(data) {
-
-        $("#addToFavButton").remove();
-
-        var removeButton  = document.createElement('button');
-        removeButton.classList = "btn btn-default";
-        removeButton.type = "button";
-        removeButton.id = "removeFromFavButton";
-        removeButton.onclick = function(){
-        removeFromFavorites();
-        };    
-        removeButton.innerHTML = "Remove from Favorites";
-      
-     });
-     }
     
  }
     
