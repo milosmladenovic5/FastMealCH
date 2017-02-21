@@ -53,19 +53,25 @@ router.get('/Recipes', function(req, res, next){
 });
 
 router.get('/GetRecipe/:name', function(req, res){
-  db.recipes.findOne({name: req.params.name}, function(err, recipe){
+  db.recipes.findOne({name: req.params.name}, function(err, recipe1){
     if(err)
       return res.send(err);
-
+      
+    var recipe = recipe1;
+    
       var userId = req.session.userId;
+      console.log(userId);
+
       if(userId === undefined || userId === null)
       {
         var recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userStatus:1 };
         return res.json(recipeExtended);
       }
       db.users.findOne({_id: ObjectId(userId)}, function(err, user){
+        console.log(user.username);
 
         var recipeExteded;
+
         if(user.favoriteRecipes.indexOf(recipe.name) === -1)
             recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userStatus:2 };
         else

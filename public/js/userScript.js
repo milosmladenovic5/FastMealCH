@@ -181,6 +181,8 @@ function changeInfoRequest()
     emailInput.value = email;
     emailInput.name = "email";
     emailInput.id   = "email";
+    emailInput.setAttribute("readonly","readonly");
+
     emailInput.classList= "form-control";
 
     var inputPic = document.createElement('input');
