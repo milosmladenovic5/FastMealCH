@@ -207,11 +207,13 @@
             prepTime.classList = 'prepTimeP';
             prepTime.innerHTML = recipes[i].estimatedTime;
 
+            var recName = recipes[i].name;
+            
             var moreInfoLink  = document.createElement('button');
             moreInfoLink.innerHTML = "More information";
             moreInfoLink.classList = "btn btn-success moreBtn";
             moreInfoLink.id="moreBtn"+recName;
-            var recName = recipes[i].name;
+            
 
             moreInfoLink.onclick = function(){
                     openRecipe(recName);
