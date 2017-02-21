@@ -73,7 +73,24 @@ router.post('/updateUserInfo', function(req, res){
 });
 
 
-
+router.get('/myProfile', function(req, res){
+    var username = req.session.username;
+    var password = req.session.password;
+    
+     db.users.findOne({username: username, password: password}, function (err, user){
+        if(err)
+        {
+        //console.log(err);
+        res.send(err);
+        }
+    
+        if(user)
+        {
+            return res.render('user.html',  {user:user}); 
+        //req.session.user = user;
+        }
+     });
+});
 
 router.post('/loginInputData', function(req, res) {
   var username = req.body.username;

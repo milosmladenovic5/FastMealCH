@@ -41,10 +41,9 @@
 <div class="favRecipes container col-lg-5">
     <h1>Favorite recipes</h1>
     <div class="listOfRecipes">
-     <% if(user.favoriteRecipes===null) {
-      
-      } 
-      else {  
+     <% if(user.favoriteRecipes===null) { %>
+        <h1> Ok</h1>
+      <%  } else {  
         for(var i=0; i<user.favoriteRecipes.length; i++) { %>
        <a href="#" onclick="getRecipe(this)" id= <%= user.favoriteRecipes[i] %> ><%= user.favoriteRecipes[i] %> </a>
        </br>
