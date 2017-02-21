@@ -86,6 +86,7 @@ router.get('/myProfile', function(req, res){
     
         if(user)
         {
+            console.log(user);
             return res.render('user.html',  {user:user}); 
         //req.session.user = user;
         }
@@ -115,6 +116,8 @@ router.post('/loginInputData', function(req, res) {
     if(user)
     {
         req.session.userId = user._id;
+        req.session.username = user.username;
+        req.session.password = user.password;
         return res.render('user.html',  {user:user}); 
       //req.session.user = user;
     }
@@ -167,7 +170,7 @@ router.post('/register', function(req, res, next){
 
                
                     var nextId = getNextSequence("userid");
-                    db.users.insert({"_id": nextId, "username":username, "password":password, "email":email, "profilePicture":" ", "favoriteRecipes":[], "shortDescription":" "}, function(err, result) {
+                    db.users.insert({"_id": nextId, "username":username, "password":password, "email":email, "profilePicture":" ", "favoriteRecipes":[""], "shortDescription":" "}, function(err, result) {
 
                         if(err)
                             res.send(err);
