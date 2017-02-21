@@ -56,8 +56,30 @@ router.get('/GetRecipe/:name', function(req, res){
   db.recipes.findOne({name: req.params.name}, function(err, recipe){
     if(err)
       return res.send(err);
+
+      var userId = req.session.userId;
+      if(userId === undefined || userId === null)
+      {
+        var recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userStatus:1 };
+        return res.json(recipeExtended);
+      }
+      db.users.findOne({_id: ObjectId(userId)}, function(err, user){
+
+        var recipeExteded;
+        if(user.favoriteRecipes.IndexOf(recipe.name) === -1)
+            recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userHasIt:2 };
+        else
+            recipeExtended = {_id:recipe._id, name:recipe.name, ingredients:recipe.ingredients, estimatedTime:recipe.estimatedTime, image:recipe.image, wayOfPreparation:recipe.wayOfPreparation, userHasIt:3 };
+
+        return res.json(recipeExteded);
+
+        
+      // userStatus : 1 - korisnik nije ulogovan
+      //              2 - korisnik je ulogovan i nema recept u svojoj listi
+      //              3 - korisnik je ulogovan i ima recept u svojoj listi
     
-    return res.json(recipe);
+    
+      });
   });
 });
 

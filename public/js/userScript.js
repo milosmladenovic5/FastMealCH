@@ -198,7 +198,7 @@ function changeInfoRequest()
         var bool = false;
         uploadPic(bool);
     };    
-    inputPicBtn.innerHTML = "Upload pic";
+    inputPicBtn.innerHTML = "Upload";
 
     var submitUpdates = document.createElement('button');
     submitUpdates.classList = "btn btn-danger";

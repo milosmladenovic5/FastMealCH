@@ -171,7 +171,17 @@ router.post('/register', function(req, res, next){
 
 router.post('/file_upload', upload.single('pic'), function (req, res) {
    return res.end( JSON.stringify( req.file.filename ) );   
-})
+});
+
+router.post('/addToFavorites', function (req, res) {
+      var userId = req.session.userId;
+      var recipeName = req.body.recipeName;
+      db.users.update({_id: ObjectId(userId)},  { $push: { favoriteRecipes: recipeName } } , function(err,user){
+            return res.end("Success!!")
+
+       }); 
+});
+
 
 
 

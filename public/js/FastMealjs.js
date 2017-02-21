@@ -291,7 +291,26 @@
          $('#mealImage').remove();
      }
 
+     function addToFavorites()      // dodaje korisniku recept u bazi, i menja dugme na remove
+     {
+         var recipeName = $('#myModalLabel').html(); 
 
+         
+     $.post("/api/addToFavorites", {recipeName:recipeName}, function(data) {
+
+        $("#addToFavButton").remove();
+
+        var removeButton  = document.createElement('button');
+        removeButton.classList = "btn btn-default";
+        removeButton.type = "button";
+        removeButton.id = "removeFromFavButton";
+        removeButton.onclick = function(){
+        removeFromFavorites();
+        };    
+        removeButton.innerHTML = "Remove from Favorites";
+      
+     });
+     }
     
  }
     
